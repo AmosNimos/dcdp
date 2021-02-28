@@ -4,6 +4,7 @@ import os
 import getpass
 
 # Global variable
+user = str(getpass.getuser())
 path = "/home/"+user
 entry = path
 terminalEmulator="xfce4-terminal"
@@ -22,6 +23,11 @@ entry = dmenu.show(list_all)
 path=entry
 os.chdir(path)
 os.system(str(terminalEmulator)+" --working-directory="+os.getcwd())
+
+
+
+
+
 
 
 
