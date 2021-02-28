@@ -4,12 +4,10 @@ import os
 import getpass
 
 # Global variable
-enter="enter"
-user = str(getpass.getuser())
-default = ["..",enter]
 path = "/home/"+user
-terminalEmulator="xfce4-terminal"
 entry = path
+terminalEmulator="xfce4-terminal"
+
 
 def list_dir(location):
 	files_in_dir = []
@@ -24,6 +22,10 @@ entry = dmenu.show(list_all)
 path=entry
 os.chdir(path)
 os.system(str(terminalEmulator)+" --working-directory="+os.getcwd())
+
+
+
+
 
 
 
