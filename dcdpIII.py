@@ -7,7 +7,9 @@ import getpass
 user = str(getpass.getuser())
 path = "/home/"+user
 entry = path
-terminalEmulator="xfce4-terminal"
+
+# Here you can choose your default terminal emulator tested: xfce4-terminal,gnome-terminal
+terminalEmulator="gnome-terminal"
 
 
 def list_dir(location):
@@ -23,16 +25,3 @@ entry = dmenu.show(list_all)
 path=entry
 os.chdir(path)
 os.system(str(terminalEmulator)+" --working-directory="+os.getcwd())
-
-
-
-
-
-
-
-
-
-
-
-
-
