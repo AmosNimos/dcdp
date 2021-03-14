@@ -5,7 +5,7 @@ import getpass
 
 # Global variable
 user = str(getpass.getuser())
-path = "/home/"+user
+path = "/home/"+user+"/Documents"
 entry = path
 data_file = '/var/tmp/dcdp.txt'
 # Here you can choose your default terminal emulator tested: xfce4-terminal,gnome-terminal
