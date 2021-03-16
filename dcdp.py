@@ -28,12 +28,11 @@ if not os.path.exists(data_file):
 		for element in list_all:
 			if len(element) > 1 and element[0] != " ":
 				f.write(element)
-				f.write('\n')
+				#f.write('\n')
 		f.close()
 		pass
 else:
 	file_size = os.path.getsize(data_file)
-	print("show")
 	if file_size < 1:
 		print("write")
 		list_all=list_dir(path)
@@ -45,22 +44,29 @@ else:
 			f.close()
 			pass	
 	with open(data_file, 'r') as f: 
-		print("show")
 		list_all=f.readlines()
 		f.close()
 		pass
 
+z = ["\n",""," ","  "]	
+for elem in z:
+	if elem in list_all:
+		list_all.remove(elem) 
 #select element
 entry = dmenu.show(list_all)
+if entry == None:
+	print("invalid option")
+	exit()
 #update list
-if list_all[0] != entry:
+print("list_all: "+str(list_all[0]))
+print("entry: "+str(entry))
+if str(list_all[0]) != str(entry):
+	print("work")
 	for element in list_all:
-		if entry == element:
-			tmp=element
-			print(tmp)
-			list_all.remove(tmp) 
-			list_all.insert(0, tmp)
-			print(list_all)
+		if str(element).rstrip() == str(entry).rstrip():
+			print("element: "+str(element))
+			list_all.remove(element) 
+			list_all.insert(0, str(entry))
 	with open(data_file, 'w') as f: 
 		for element in list_all:
 			if len(element) > 1 and element[0] != " ":
