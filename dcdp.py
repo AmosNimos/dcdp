@@ -28,16 +28,16 @@ if not os.path.exists(data_file):
 	with open(data_file, 'w') as f: 
 		list_all=list_dir(path)
 		for element in list_all:
-			if len(element) > 1 and element[0] != " ":
-				f.write(element)
-				f.write("!|!")
+			f.write(element)
+			f.write("!|!")
 				#f.write('\n')
 		f.close()
 		pass
 
+
+#file_size = os.path.getsize(data_file)
 print("read")
 list_all=[]
-file_size = os.path.getsize(data_file)
 with open(data_file, 'r') as f:
 	full = f.read()
 	paths = full.split("!|!")
@@ -45,11 +45,7 @@ with open(data_file, 'r') as f:
 		if str(line) not in z:
 			list_all.append(str(line))
 			print(line)
-
-#for elem in z:
-#	if elem in list_all:
-#		list_all.remove(elem) 
-
+			
 #select element
 entry = ''
 while entry == '':
@@ -64,10 +60,11 @@ if str(list_all[0]) != str(entry) and entry != None:
 			list_all.remove(element) 
 			if len(element) > 1 and element[0] != " ":
 				list_all.insert(0, str(element))
+	print("write")
 	with open(data_file, 'w') as f: 
 		for element in list_all:
-			if len(element) > 1 and element[0] != " " and element[0] != "\n" and element[0] != None:
-				f.write(element)
+			f.write(element)
+			f.write("!|!")
 		f.close()
 		pass
 
