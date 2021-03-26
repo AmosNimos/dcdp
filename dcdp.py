@@ -9,8 +9,9 @@ path = "/home/"+user+"/Documents"
 entry = path
 data_file = '/var/tmp/dcdp.txt'
 # Here you can choose your default terminal emulator tested: xfce4-terminal,gnome-terminal
-terminalEmulator="gnome-terminal"
+terminal_emulator="gnome-terminal"
 file_manager="nautilus"
+text_editor="subl"
 
 
 def list_dir(location):
@@ -40,7 +41,6 @@ else:
 			for element in list_all:
 				if len(element) > 1 and element[0] != " ":
 					f.write(element)
-					f.write('\n')
 			f.close()
 			pass	
 	with open(data_file, 'r') as f: 
@@ -71,18 +71,21 @@ if str(list_all[0]) != str(entry):
 		for element in list_all:
 			if len(element) > 1 and element[0] != " ":
 				f.write(element)
-				f.write('\n')
 		f.close()
 		pass
 
 path = entry
-entry = dmenu.show([file_manager,terminalEmulator])
-if entry == terminalEmulator:
+#entry = dmenu.show([terminal_emulator,text_editor,file_manager])
+entry = terminal_emulator
+if entry == terminal_emulator:
 	os.chdir(path)
-	os.system(str(terminalEmulator)+" --working-directory="+os.getcwd())
+	os.system(str(terminal_emulator)+" --working-directory="+os.getcwd())
 	exit()
 elif entry == file_manager:
 	os.system(file_manager+" "+path)
+	exit()
+elif entry == text_editor:
+	os.system(text_editor+" "+path)
 	exit()
 else:
 	print("invalid option")
