@@ -12,7 +12,8 @@ data_file = '/var/tmp/dcdp.txt'
 terminal_emulator="gnome-terminal"
 file_manager="nautilus"
 text_editor="subl"
-
+list_all = []
+z = [None,"",'\n%s','','\n',"\n"," ","  "]	
 
 def list_dir(location):
 	files_in_dir = []
@@ -23,53 +24,49 @@ def list_dir(location):
 	return files_in_dir
 
 if not os.path.exists(data_file):
-	print("create")
+	print("write")
 	with open(data_file, 'w') as f: 
 		list_all=list_dir(path)
 		for element in list_all:
 			if len(element) > 1 and element[0] != " ":
 				f.write(element)
+				f.write("!|!")
 				#f.write('\n')
 		f.close()
 		pass
-else:
-	file_size = os.path.getsize(data_file)
-	if file_size < 1:
-		print("write")
-		list_all=list_dir(path)
-		with open(data_file, 'w') as f: 
-			for element in list_all:
-				if len(element) > 1 and element[0] != " ":
-					f.write(element)
-			f.close()
-			pass	
-	with open(data_file, 'r') as f: 
-		list_all=f.readlines()
-		f.close()
-		pass
 
-z = ["\n",""," ","  "]	
-for elem in z:
-	if elem in list_all:
-		list_all.remove(elem) 
+print("read")
+list_all=[]
+file_size = os.path.getsize(data_file)
+with open(data_file, 'r') as f:
+	full = f.read()
+	paths = full.split("!|!")
+	for line in paths: 
+		if str(line) not in z:
+			list_all.append(str(line))
+			print(line)
+
+#for elem in z:
+#	if elem in list_all:
+#		list_all.remove(elem) 
+
 #select element
-entry = dmenu.show(list_all)
-if entry == None:
-	print("invalid option")
-	exit()
+entry = ''
+while entry == '':
+	entry = dmenu.show(list_all)
 #update list
-print("list_all: "+str(list_all[0]))
-print("entry: "+str(entry))
-if str(list_all[0]) != str(entry):
+
+if str(list_all[0]) != str(entry) and entry != None:
 	print("work")
 	for element in list_all:
 		if str(element).rstrip() == str(entry).rstrip():
 			print("element: "+str(element))
 			list_all.remove(element) 
-			list_all.insert(0, str(entry))
+			if len(element) > 1 and element[0] != " ":
+				list_all.insert(0, str(element))
 	with open(data_file, 'w') as f: 
 		for element in list_all:
-			if len(element) > 1 and element[0] != " ":
+			if len(element) > 1 and element[0] != " " and element[0] != "\n" and element[0] != None:
 				f.write(element)
 		f.close()
 		pass
